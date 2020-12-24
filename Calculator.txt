@@ -1,0 +1,505 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package javafxapplication1;
+
+import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.stage.Stage;
+/**
+ *
+ * @author Misbah Tariq 43852
+ */
+public class Calculator extends Application{
+    String num1 = "";
+	String num2 = "";
+	String op;
+	double result = 0;
+	boolean oldop = false;
+
+    @Override
+	public void start(Stage stage) throws Exception {
+		Font font =new Font(15);
+		Button b0 = new Button("0");
+		b0.setPrefSize(75,35);
+		b0.setTextFill(Color.BLUE);
+		Button bdot = new Button(".");
+		bdot.setPrefSize(75,35);
+		bdot.setTextFill(Color.BLUE);
+		Button b1 = new Button("1");
+		b1.setPrefSize(75,35);
+		b1.setTextFill(Color.BLUE);
+		Button b2 = new Button("2");
+		b2.setPrefSize(75,35);
+		b2.setTextFill(Color.BLUE);
+		Button b3 = new Button("3");
+		b3.setPrefSize(75,35);
+		b3.setTextFill(Color.BLUE);
+		Button b4 = new Button("4");
+		b4.setPrefSize(75,35);
+		b4.setTextFill(Color.BLUE);
+		Button b5 = new Button("5");
+		b5.setPrefSize(75,35);
+		b5.setTextFill(Color.BLUE);
+		Button b6 = new Button("6");
+		b6.setPrefSize(75,35);
+		b6.setTextFill(Color.BLUE);
+		Button b7 = new Button("7");
+		b7.setPrefSize(75,35);
+		b7.setTextFill(Color.BLUE);
+		Button b8 = new Button("8");
+		b8.setPrefSize(75,35);
+		b8.setTextFill(Color.BLUE);
+		Button b9 = new Button("9");
+		b9.setPrefSize(75,35);
+		b9.setTextFill(Color.BLUE);
+		Button badd = new Button("+");
+		badd.setPrefSize(75,35);
+		badd.setFont(font);
+		badd.setTextFill(Color.RED);
+		Button bsub = new Button("-");
+		bsub.setPrefSize(75,35);
+		bsub.setFont(font);
+		bsub.setTextFill(Color.RED);
+		Button bmul = new Button("*");
+		bmul.setPrefSize(75,35);
+		bmul.setFont(font);
+		bmul.setTextFill(Color.RED);
+		Button bdiv = new Button("/");
+		bdiv.setPrefSize(75,35);
+		bdiv.setFont(font);
+		bdiv.setTextFill(Color.RED);
+		Button bsin = new Button("Sin");
+		bsin.setPrefSize(75,35);
+		bsin.setTextFill(Color.GOLDENROD);
+		Button bcos = new Button("Cos");
+		bcos.setPrefSize(75,35);
+		bcos.setTextFill(Color.GOLDENROD);
+		Button btan = new Button("Tan");
+		btan.setPrefSize(75,35);
+		btan.setTextFill(Color.GOLDENROD);
+		Button bsini = new Button("Sin-1");
+		bsini.setPrefSize(75,35);
+		bsini.setTextFill(Color.GOLDENROD);
+		Button bcosi = new Button("Cos-1");
+		bcosi.setPrefSize(75,35);
+		bcosi.setTextFill(Color.GOLDENROD);
+		Button btani = new Button("Tan-1");	
+		btani.setPrefSize(75,35);
+		btani.setTextFill(Color.GOLDENROD);
+		Button bsqr = new Button("Sqr");
+		bsqr.setPrefSize(75,35);
+		Button bsqrt = new Button("Sqrt");
+		bsqrt.setPrefSize(75,35);
+		Button bcub = new Button("Cub");
+		bcub.setPrefSize(75,35);
+		Button bcbrt = new Button("Cbrt");
+		bcbrt.setPrefSize(75,35);
+		Button blog = new Button("log");
+		blog.setPrefSize(75,35);
+		Button bln =new Button("ln");
+		bln.setPrefSize(75, 35);
+		Button beql = new Button("=");
+		beql.setPrefSize(75,35);
+		Button bac = new Button("AC");
+		bac.setPrefSize(75,35);
+		bac.setCursor(null);
+		bac.setTextFill(Color.GREEN);
+		TextField txt = new TextField("");
+		txt.setPrefSize(300, 40);
+		txt.setCursor(null);
+		
+		HBox h = new HBox();
+		h.getChildren().addAll(txt);
+		HBox h12=new HBox();
+		h12.getChildren().addAll(bac);
+		HBox h11 = new HBox();
+		h11.getChildren().addAll(bsqrt,bcbrt,blog,bln);
+		HBox h1 = new HBox();
+		h1.getChildren().addAll(b7, b8, b9, bdiv);
+		HBox h2 = new HBox();
+		h2.getChildren().addAll(bsini, bcosi, btani,bcub);
+		HBox h3 = new HBox();
+		h3.getChildren().addAll(bsin, bcos, btan,bsqr);
+		HBox h4 = new HBox();
+		h4.getChildren().addAll(b4, b5, b6, bmul);
+		HBox h5 = new HBox();
+		h5.getChildren().addAll(b1, b2, b3, bsub);
+		HBox h6 = new HBox();
+		h6.getChildren().addAll(b0, bdot, beql, badd);
+		
+		VBox v = new VBox();
+		v.getChildren().addAll(h,h12, h11, h3, h2, h1, h4, h5,h6);
+		Scene scene = new Scene(v, 300, 250);
+		stage.setScene(scene);
+		stage.show();
+		
+		bdot.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent arg0) {
+				if (!oldop) {
+					num1 += '.';
+					txt.setText(num1);
+				} else {
+					num2 += '.';
+					txt.setText(num2);
+				}
+			}
+		});
+		b0.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent arg0) {
+				if (!oldop) {
+					num1 += '0';
+					txt.setText(num1);
+				} else {
+					num2 += '0';
+					txt.setText(num2);
+				}
+			}
+		});
+		b1.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent arg0) {
+				if (!oldop) {
+					num1 += '1';
+					txt.setText(num1);
+				} else {
+					num2 += '1';
+					txt.setText(num2);
+				}
+			}
+		});
+		b2.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent arg0) {
+				if (!oldop) {
+					num1 += '2';
+					txt.setText(num1);
+				} else {
+					num2 += '2';
+					txt.setText(num2);
+				}
+			}
+		});
+		b3.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent arg0) {
+				if (!oldop) {
+					num1 += '3';
+					txt.setText(num1);
+				} else {
+					num2 += '3';
+					txt.setText(num2);
+				}
+			}
+		});
+		b4.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent arg0) {
+				if (!oldop) {
+					num1 += '4';
+					txt.setText(num1);
+				} else {
+					num2 += '4';
+					txt.setText(num2);
+				}
+			}
+		});
+		b5.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent arg0) {
+				if (!oldop) {
+					num1 += '5';
+					txt.setText(num1);
+				} else {
+					num2 += '5';
+					txt.setText(num2);
+				}
+			}
+		});
+		b6.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent arg0) {
+				if (!oldop) {
+					num1 += '6';
+					txt.setText(num1);
+				} else {
+					num2 += '6';
+					txt.setText(num2);
+				}
+			}
+		});
+		b7.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent arg0) {
+				if (!oldop) {
+					num1 += '7';
+					txt.setText(num1);
+				} else {
+					num2 += '7';
+					txt.setText(num2);
+				}
+			}
+		});
+		b8.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent arg0) {
+				if (!oldop) {
+					num1 += '8';
+					txt.setText(num1);
+				} else {
+					num2 += '8';
+					txt.setText(num2);
+				}
+			}
+		});
+		b9.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent arg0) {
+				if (!oldop) {
+					num1 += '9';
+					txt.setText(num1);
+				} else {
+					num2 += '9';
+					txt.setText(num2);
+				}
+			}
+		});
+		badd.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent arg0) {
+				if (!oldop) {
+					oldop = true;
+					op = "+";
+					txt.setText(op);
+				} else {
+					result = calc(num1, num2, op);
+					num1 = String.valueOf(result);
+					num2 = "";
+					op = "+";
+					txt.setText(num1 + op);
+					oldop = true;
+				}
+			}
+		});
+		bsub.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent arg0) {
+				if (!oldop) {
+					oldop = true;
+					op = "-";
+					txt.setText(op);
+				} else {
+					result = calc(num1, num2, op);
+					num1 = String.valueOf(result);
+					num2 = "";
+					op = "-";
+					txt.setText(num1 + op);
+					oldop = true;
+				}
+			}
+		});
+		bmul.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent arg0) {
+				if (!oldop) {
+					oldop = true;
+					op = "*";
+					txt.setText(op);
+				} else {
+					result = calc(num1, num2, op);
+					num1 = String.valueOf(result);
+					num2 = "";
+					op = "*";
+					txt.setText(num1 + op);
+					oldop = true;
+				}
+			}
+		});
+		bdiv.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent arg0) {
+				if (!oldop) {
+					oldop = true;
+					op = "/";
+					txt.setText(op);
+				} else {
+					result = calc(num1, num2, op);
+					num1 = String.valueOf(result);
+					num2 = "";
+					op = "/";
+					txt.setText(num1 + op);
+					oldop = true;
+				}
+			}
+		});
+		bsqr.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent arg0) {
+				num1=txt.getText();
+				 double n1= Double.parseDouble(num1);
+				 double a=Math.pow(n1,2); 
+				 txt.setText(String.valueOf(a));
+			}
+		});
+		bsqrt.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent arg0) {
+				num1=txt.getText();
+				 double n1= Double.parseDouble(num1);
+				 double a=Math.sqrt(n1); 
+				 txt.setText(String.valueOf(a));
+			}
+		});
+		bcub.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent arg0) {
+				num1=txt.getText();
+				 double n1= Double.parseDouble(num1);
+				 double a=Math.pow(n1,3); 
+				 txt.setText(String.valueOf(a));
+			}
+		});
+		bcbrt.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent arg0) {
+				num1=txt.getText();
+				 double n1= Double.parseDouble(num1);
+				 double a=Math.cbrt(n1); 
+				 txt.setText(String.valueOf(a));
+			}
+		});
+		  bsin.setOnAction(new EventHandler<ActionEvent>() {
+		  @Override public void handle(ActionEvent event) { 
+			  num1=txt.getText();
+			 double n1= Double.parseDouble(num1);
+			  txt.setText(num1); 
+			 String a=Double.toString( Math.sin(n1));
+			 txt.setText(a);
+		  } });
+		  bcos.setOnAction(new EventHandler<ActionEvent>() {
+			  @Override public void handle(ActionEvent event) { 
+				  num1=txt.getText();
+				 double n1= Double.parseDouble(num1);
+				  txt.setText(num1); 
+				 String a=Double.toString( Math.cos(n1));
+				 txt.setText(a);
+			  } });
+		  btan.setOnAction(new EventHandler<ActionEvent>() {
+			  @Override public void handle(ActionEvent event) { 
+				  num1=txt.getText();
+				 double n1= Double.parseDouble(num1);
+				  txt.setText(num1); 
+				 String a=Double.toString( Math.tan(n1));
+				 txt.setText(a);
+			  
+			  } });
+		  
+		  bsini.setOnAction(new EventHandler<ActionEvent>() {
+				
+			  @Override public void handle(ActionEvent event) { 
+				  num1=txt.getText();
+				 double n1= Double.parseDouble(num1);
+				  txt.setText(num1); 
+				 String a=Double.toString( Math.sin(n1));
+				 txt.setText(a);
+				
+			  } });
+		  
+		  bcosi.setOnAction(new EventHandler<ActionEvent>() {
+				
+			  @Override public void handle(ActionEvent event) { 
+				  num1=txt.getText();
+				 double n1= Double.parseDouble(num1);
+				  txt.setText(num1); 
+				 String a=Double.toString( Math.cos(n1));
+				 txt.setText(a);
+			  
+			  } });
+		  
+		  btani.setOnAction(new EventHandler<ActionEvent>() {
+				
+			  @Override public void handle(ActionEvent event) { 
+				  num1=txt.getText();
+				 double n1= Double.parseDouble(num1);
+				  txt.setText(num1); 
+				 String a=Double.toString( Math.tanh(n1));
+				 txt.setText(a);
+			  
+			  } });
+		  blog.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent arg0) {
+				 num1=txt.getText();
+				 double n1= Double.parseDouble(num1);
+				  txt.setText(num1); 
+				 String a=Double.toString( Math.log10(n1));
+				 txt.setText(a);	
+			}
+		});
+		  bln.setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent arg0) {
+					 num1=txt.getText();
+					 double n1= Double.parseDouble(num1);
+					  txt.setText(num1); 
+					 String a=Double.toString( Math.log(n1));
+					 txt.setText(a);	
+				}
+			});
+		  
+		  beql.setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent arg0) {
+					if (oldop) {
+						result = calc(num1, num2, op);
+						txt.setText(String.valueOf(result));
+						oldop = false;
+						num2 = "";
+					} else
+						return;
+				}
+			});
+			bac.setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent arg0) {
+					
+					  num1="0";
+					  num2="0";
+					  result=0;
+					  oldop=false;
+					 op="";
+					txt.setText("0");
+				}
+			});		
+	}
+	public double calc(String n1, String n2, String op) {
+		switch (op) {
+		case "+":
+			return Double.parseDouble(n1) + Double.parseDouble(n2);
+		case "-":
+			return Double.parseDouble(n1) - Double.parseDouble(n2);
+		case "*":
+			return Double.parseDouble(n1) * Double.parseDouble(n2);
+		case "/":
+			return Double.parseDouble(n1) / Double.parseDouble(n2);
+		default:
+			return 0;
+		}
+	}
+	
+	public static void main(String[] args) {
+		Application.launch(args);
+	}
+}
